@@ -1,63 +1,66 @@
 function openLetter(){
 
-const envelope=document.querySelector(".envelope")
-
-envelope.classList.add("open")
-
-setTimeout(()=>{
-
-document.getElementById("intro").style.display="none"
-document.getElementById("main").style.display="block"
-
-},600)
+document.getElementById("intro").style.display="none";
+document.getElementById("main").style.display="block";
 
 }
 
-/* scroll reveal */
+/* petals */
 
-const reveals=document.querySelectorAll(".reveal")
+const canvas=document.getElementById("petals");
+const ctx=canvas.getContext("2d");
 
-function reveal(){
+function resize(){
 
-const windowHeight=window.innerHeight
-
-reveals.forEach(el=>{
-
-const top=el.getBoundingClientRect().top
-
-if(top < windowHeight-120){
-el.classList.add("active")
-}
-
-})
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
 }
 
-window.addEventListener("scroll",reveal)
-reveal()
+resize();
+window.addEventListener("resize",resize);
 
-/* hearts */
+let petals=[];
 
-function createHeart(){
+for(let i=0;i<50;i++){
 
-const heart=document.createElement("div")
+petals.push({
 
-heart.classList.add("heart")
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*4+2,
+speedY:Math.random()*1+0.3,
+speedX:Math.random()*0.5-0.25
 
-heart.innerHTML="💖"
-
-heart.style.left=Math.random()*100+"%"
-
-heart.style.fontSize=(20+Math.random()*30)+"px"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>{
-
-heart.remove()
-
-},6000)
+});
 
 }
 
-setInterval(createHeart,500)
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+petals.forEach(p=>{
+
+p.y+=p.speedY;
+p.x+=p.speedX;
+
+if(p.y>canvas.height){
+
+p.y=-10;
+p.x=Math.random()*canvas.width;
+
+}
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle="#e8a898";
+ctx.fill();
+
+});
+
+requestAnimationFrame(draw);
+
+}
+
+draw();
