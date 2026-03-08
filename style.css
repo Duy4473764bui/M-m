@@ -211,4 +211,41 @@ animation:pulse 2s infinite;
 
 }
 
+.glow{
+
+color:#ff69b4;
+font-weight:bold;
+
+text-shadow:
+0 0 5px #ff69b4,
+0 0 10px #ff69b4,
+0 0 20px #ff1493,
+0 0 40px #ff1493,
+0 0 60px #ff1493;
+
+animation: glowPink 2s infinite alternate;
+
+}
+
+@keyframes glowPink{
+
+from{
+
+text-shadow:
+0 0 5px #ff69b4,
+0 0 10px #ff69b4,
+0 0 20px #ff1493;
+
+}
+
+to{
+
+text-shadow:
+0 0 10px #ff69b4,
+0 0 20px #ff69b4,
+0 0 40px #ff1493,
+0 0 80px #ff1493;
+
+}
+
 }
